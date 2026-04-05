@@ -1,0 +1,416 @@
+[
+  {
+    "ticket_id": "EVAL-001",
+    "customer_name": "Cirrus Cloud Inc.",
+    "plan": "Growth",
+    "subject": "Problam with import data to Steadfast",
+    "body": "Hello I having problem with importing data from our CRM system into Steadfast. The CSV I am uploading but it giving error every time says 'invalid format'. I check the file and it looks good to me, has all columns same as template. Maybe is issue with encoding? We using Hebrew in some fields. Sorry for english I am not native speaker. This is very important for us we cannot use the platform without this data.",
+    "expected_category": "integration",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-002",
+    "customer_name": "Tundra Analytics",
+    "plan": "Growth",
+    "subject": "Setting up Steadfast for our new team of interns",
+    "body": "We have 10 summer interns starting next week and want to get them on Steadfast. They'll need access to two specific projects and nothing else. Also want to make sure they can't accidentally delete anything. Should we use guest accounts? Do we need to upgrade our plan for more seats? What permissions should they have?",
+    "expected_category": "onboarding",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-003",
+    "customer_name": "Goldleaf Digital",
+    "plan": "Starter",
+    "subject": "Where do I find the API rate limit documentation?",
+    "body": "Starting to build an integration with your API. Need to understand the rate limits \u2014 requests per minute, per hour, any burst limits, and whether limits differ by endpoint or plan. Couldn't find this info in the main docs. Where is the rate limiting documented?",
+    "expected_category": "onboarding",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-004",
+    "customer_name": "RapidScale Systems",
+    "plan": "Starter",
+    "subject": "How to migrate from Trello to Steadfast",
+    "body": "We're switching from Trello and need to bring over about 3,000 cards across 20 boards. Is there an import tool? We want to preserve labels, assignments, due dates, and attachments if possible. What's the recommended migration approach?",
+    "expected_category": "onboarding",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-005",
+    "customer_name": "Harborview Insurance",
+    "plan": "Growth",
+    "subject": "Task status webhook not triggering",
+    "body": "We configured a webhook to fire when task statuses change, but it's not triggering consistently. About half the status changes don't send a webhook event. We've verified the webhook URL is accessible and the subscription is active. Our automation pipeline depends on these events.",
+    "expected_category": "integration",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-006",
+    "customer_name": "Peakline Software",
+    "plan": "Enterprise",
+    "subject": "Page load times getting worse every week",
+    "body": "Over the past month, our Steadfast instance has been getting progressively slower. Page loads that used to be instant now take 8-12 seconds. Task list scrolling is choppy. Opening a project takes 5+ seconds. We have about 50,000 tasks across 40 projects. This is becoming a productivity issue for our 100-person team.",
+    "expected_category": "performance",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-007",
+    "customer_name": "Steelbridge Consulting",
+    "plan": "Growth",
+    "subject": "Slack integration posting as wrong user",
+    "body": "Our Slack integration is posting all notifications as 'Steadfast Bot' instead of the actual user who performed the action. So when someone completes a task, the Slack message says 'Steadfast Bot completed task X' instead of 'John completed task X.' This makes our Slack channel less useful.",
+    "expected_category": "integration",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-008",
+    "customer_name": "Quartz Data",
+    "plan": "Growth",
+    "subject": "Can't access billing page since this morning",
+    "body": "Hi, I've been trying to access the billing section of our account all morning but keep getting a blank page. Other sections of Steadfast work fine. I need to download our latest invoice for an expense report. I've tried Chrome and Safari \u2014 same issue on both.",
+    "expected_category": "billing",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-009",
+    "customer_name": "Maplewood Health",
+    "plan": "Enterprise",
+    "subject": "SSO login issues \u2014 redirect loop after authentication",
+    "body": "Our users are hitting a redirect loop when trying to log in through SSO. They authenticate with our IdP successfully but then Steadfast keeps bouncing them back to the login page. Started yesterday. About half our users are affected. The other half can log in fine.",
+    "expected_category": "integration",
+    "expected_priority": "critical"
+  },
+  {
+    "ticket_id": "EVAL-010",
+    "customer_name": "Firebrand Media",
+    "plan": "Enterprise",
+    "subject": "App is super laggy when lots of people are on",
+    "body": "Every day between 9-11 AM when most of our team logs in, Steadfast becomes extremely laggy. Pages take forever, clicks don't register, and sometimes the whole app freezes. Outside of peak hours it's fine. We have 150 users. Is this a capacity issue on your end?",
+    "expected_category": "performance",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-011",
+    "customer_name": "Cliffside Ventures",
+    "plan": "Starter",
+    "subject": "Automated notifications aren't working the way I expected",
+    "body": "We set up task automation to notify team leads when tasks are overdue. But the notifications seem to fire for every status change, not just when tasks become overdue. Also, I'm not sure if this is a bug or if I configured something wrong. The automation builder is a bit confusing. We just started using this feature.",
+    "expected_category": "bug",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-012",
+    "customer_name": "Prism Education",
+    "plan": "Enterprise",
+    "subject": "Concerned about data access after employee departure",
+    "body": "One of our senior engineers who had admin access just left the company on bad terms. We've already changed passwords but want to make sure there's no way they can still access our Steadfast data. Can you confirm their sessions are terminated and help us audit what they accessed in the last 30 days?",
+    "expected_category": "security",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-013",
+    "customer_name": "Starlight Logistics",
+    "plan": "Growth",
+    "subject": "Duplicate charges on February invoice",
+    "body": "We were charged twice for February \u2014 two identical transactions of $1,680 on Feb 1st. I can see both charges in our bank statement. Our plan is $1,680/month so one of these needs to be refunded. Please process this as soon as possible.",
+    "expected_category": "billing",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-014",
+    "customer_name": "Basalt Engineering",
+    "plan": "Enterprise",
+    "subject": "Need MFA enforced for all users in our workspace",
+    "body": "Our IT security policy requires MFA for all cloud applications. We need to enforce MFA across our entire Steadfast workspace \u2014 no exceptions. Users who haven't set up MFA should be forced to do so on their next login. Is this configurable at the admin level?",
+    "expected_category": "security",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-015",
+    "customer_name": "Windrose Financial",
+    "plan": "Growth",
+    "subject": "Dashboard widgets showing error state",
+    "body": "All the widgets on our main dashboard are showing 'Error loading data' messages since this morning. The rest of the app seems to work \u2014 I can view tasks and projects, but the dashboard is completely broken. We use this for our daily standup. Team of 25 affected.",
+    "expected_category": "bug",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-016",
+    "customer_name": "Oakbridge Partners",
+    "plan": "Starter",
+    "subject": "Information about your enterprise solutions",
+    "body": "Hi there, I came across Steadfast at a conference last week and I'm interested in learning more. We're a mid-size logistics company (about 500 employees) currently using a mix of spreadsheets and email for project tracking. We're looking for a proper solution. Could you tell me about your enterprise features, pricing, and implementation timeline? We'd also like to know about data migration support.",
+    "expected_category": "account",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-017",
+    "customer_name": "Neon Creative Studio",
+    "plan": "Starter",
+    "subject": "The way priorities work doesn't make sense to me",
+    "body": "I think there's something wrong with how priorities work. When I set a task to 'Critical' it should float to the top of everyone's list, but it doesn't seem to change the sort order. Is this a bug or does priority not affect sorting? If it doesn't, it should \u2014 that's the whole point of priority levels.",
+    "expected_category": "feature_request",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-018",
+    "customer_name": "Titanfall Security",
+    "plan": "Growth",
+    "subject": "Want to be able to color-code my task labels",
+    "body": "I'd love to be able to assign colors to task labels so they're more visually distinct on the board view. Right now all labels look the same and it's hard to scan quickly. Different colors for different categories would make the board much more useful.",
+    "expected_category": "feature_request",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-019",
+    "customer_name": "Riverbend Manufacturing",
+    "plan": "Growth",
+    "subject": "Invoice sent to wrong email address",
+    "body": "Our invoices are being sent to finance@oldname.com which was our old company email domain. We updated our billing email to finance@quartz-data.com three months ago but invoices keep going to the old address. Please fix this and resend the last 3 invoices to the correct email.",
+    "expected_category": "billing",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-020",
+    "customer_name": "Solace HR",
+    "plan": "Enterprise",
+    "subject": "Need to enable SCIM provisioning with Okta",
+    "body": "We want to set up automated user provisioning and deprovisioning via SCIM with our Okta instance. When someone joins or leaves in our HR system, their Steadfast access should be automatically created or revoked. Is SCIM supported? What's the setup process?",
+    "expected_category": "integration",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-021",
+    "customer_name": "Arclight Gaming",
+    "plan": "Enterprise",
+    "subject": "Database query timeout on large project views",
+    "body": "Opening our largest project (2,000+ tasks) reliably times out with a 504 error. We can see smaller projects fine. The network tab shows the request to /api/projects/PRJ-0042/tasks hangs for 30 seconds before failing. This project is critical for our Q2 planning.",
+    "expected_category": "performance",
+    "expected_priority": "critical"
+  },
+  {
+    "ticket_id": "EVAL-022",
+    "customer_name": "Greenfield Agriculture",
+    "plan": "Growth",
+    "subject": "Requesting a way to set task dependencies",
+    "body": "We need the ability to create dependencies between tasks \u2014 like 'Task B can't start until Task A is complete.' We're managing complex projects with lots of sequential work and right now we track dependencies manually in a spreadsheet. This would be a game-changer for our project planning.",
+    "expected_category": "feature_request",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-023",
+    "customer_name": "Crosswind Aviation",
+    "plan": "Growth",
+    "subject": "Custom field dropdown values not saving",
+    "body": "When I create a custom field of type 'dropdown' and add options, the options disappear after saving. I can type them in and they show in the preview, but when I navigate away and come back, the field exists but the dropdown options are empty. Tried on multiple browsers.",
+    "expected_category": "bug",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-024",
+    "customer_name": "Deepwater Marine",
+    "plan": "Enterprise",
+    "subject": "Need to transfer ownership of workspace",
+    "body": "I'm leaving the company next week and need to transfer my workspace owner role to our new IT director (sarah.martinez@cirrus.io). I'm the only person with owner-level access right now. What's the process for this? Want to make sure nothing breaks when my account is deactivated.",
+    "expected_category": "account",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-025",
+    "customer_name": "Summit Legal Group",
+    "plan": "Growth",
+    "subject": "Why am I being charged for users who haven't logged in?",
+    "body": "Looking at our invoice, we're paying for 75 seats but only about 50 people actually use Steadfast. Can we deactivate the inactive accounts and get a prorated credit? Or is there a way to only pay for active users? This seems wasteful to pay for seats that nobody is using.",
+    "expected_category": "account",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-026",
+    "customer_name": "Brickhouse Retail",
+    "plan": "Starter",
+    "subject": "What happens to our data if we cancel?",
+    "body": "We're evaluating whether to continue with Steadfast. Before making a decision, I need to understand: what happens to our data if we cancel? How long is it retained? Can we export everything before cancellation? Is there a way to reactivate later without losing data?",
+    "expected_category": "account",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-027",
+    "customer_name": "Fathom AI",
+    "plan": "Growth",
+    "subject": "Files uploaded to tasks disappearing after 24 hours",
+    "body": "We're attaching documents to tasks and they're vanishing after about a day. The attachment count on the task drops to zero and the files are gone. This has happened 4 times this week with different file types (PDF, DOCX, PNG). We're losing important project deliverables.",
+    "expected_category": "bug",
+    "expected_priority": "critical"
+  },
+  {
+    "ticket_id": "EVAL-028",
+    "customer_name": "Coppervale Mining",
+    "plan": "Growth",
+    "subject": "Someone logged into my account from another location",
+    "body": "I just got a notification that my account was accessed from San Francisco, but I'm in Chicago. I checked active sessions and there is indeed a session I don't recognize. I've changed my password but I'm worried about what they may have accessed. Can you help me investigate?",
+    "expected_category": "security",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-029",
+    "customer_name": "Sparrow Telecom",
+    "plan": "Growth",
+    "subject": "Getting rate limited on /v2/analytics endpoint",
+    "body": "We're seeing 429 errors when hitting the /v2/analytics endpoint during our morning data sync. We're making about 20 requests per minute which should be well under the limit. Other endpoints work fine. Started 2 days ago. Breaking our analytics dashboard.",
+    "expected_category": "performance",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-030",
+    "customer_name": "Driftwood Studio",
+    "plan": "Growth",
+    "subject": "Global search returning zero results intermittently",
+    "body": "The global search feature works sometimes and returns zero results other times, even for terms I know exist. For example, searching for 'Q2 planning' returns results right now but returned nothing 10 minutes ago. No pattern to when it works vs doesn't. Very frustrating.",
+    "expected_category": "bug",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-031",
+    "customer_name": "Cirrus Cloud Inc.",
+    "plan": "Starter",
+    "subject": "New team \u2014 need help with initial workspace setup",
+    "body": "Hi! We just signed up for Steadfast for our marketing team (15 people). This is our first time using a project management tool of this kind. Could you help us understand the best way to set up our workspace? We have about 5 ongoing campaigns and want to track tasks, deadlines, and who's responsible for what.",
+    "expected_category": "onboarding",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-032",
+    "customer_name": "Tundra Analytics",
+    "plan": "Growth",
+    "subject": "Billing question about adding users to specific projects",
+    "body": "We want to add some external contractors to specific projects without giving them full workspace access. I see there's a 'guest' option but it still seems to count toward our seat limit. Is there a way to add limited users without incurring additional per-seat charges? Or is there a separate guest pricing?",
+    "expected_category": "billing",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-033",
+    "customer_name": "Goldleaf Digital",
+    "plan": "Growth",
+    "subject": "Automated rules not firing for subtasks",
+    "body": "We have a workflow rule that should send a Slack notification when any task moves to 'In Review' status. It works for regular tasks but doesn't trigger for subtasks. Subtasks do have statuses and they do transition through the same workflow. Seems like automation doesn't consider subtasks.",
+    "expected_category": "bug",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-034",
+    "customer_name": "RapidScale Systems",
+    "plan": "Enterprise",
+    "subject": "Request for calendar view in project management",
+    "body": "We love using Steadfast for project management but really miss having a calendar view. We want to see all our tasks laid out on a calendar by due date. Currently we export to Google Calendar which is clunky. This would be a huge quality of life improvement for our team of 60.",
+    "expected_category": "feature_request",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-035",
+    "customer_name": "Harborview Insurance",
+    "plan": "Enterprise",
+    "subject": "Trying to connect our data warehouse but having issues",
+    "body": "We're trying to set up a connection from Steadfast to our Snowflake data warehouse using your API. We want to push task completion data for our BI dashboards. We've read the API docs but can't figure out the right authentication approach for server-to-server connections. We're new to your platform.",
+    "expected_category": "integration",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-036",
+    "customer_name": "Peakline Software",
+    "plan": "Enterprise",
+    "subject": "Multiple issues with our workspace \u2014 urgent",
+    "body": "We're having several problems at once and need help: 1) Our Jira integration stopped syncing 3 days ago and we have 200+ unsynced issues. 2) Two of our team leads can't access the admin panel even though they have admin roles. 3) The project timeline view is showing tasks in the wrong order \u2014 it seems to be sorting by creation date instead of due date. The Jira sync is the most urgent because our engineering team is flying blind without it. The admin access is also important because they need to approve PTO requests in the system. The timeline thing is annoying but we can live with it for now.",
+    "expected_category": "integration",
+    "expected_priority": "critical"
+  },
+  {
+    "ticket_id": "EVAL-037",
+    "customer_name": "Steelbridge Consulting",
+    "plan": "Growth",
+    "subject": "Need to deactivate former employee accounts",
+    "body": "We have 5 employees who left the company last month and their Steadfast accounts are still active. I need to deactivate them and reassign their tasks to other team members. Can you walk me through the bulk deactivation process? Also want to make sure we don't lose any of their project data.",
+    "expected_category": "account",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-038",
+    "customer_name": "Quartz Data",
+    "plan": "Enterprise",
+    "subject": "Quick question about where to find our storage usage",
+    "body": "Hey, simple question \u2014 where can I see how much storage our Enterprise workspace is using? Just want to make sure we're not approaching any limits. Not urgent at all, whenever you get a chance.",
+    "expected_category": "account",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-039",
+    "customer_name": "Maplewood Health",
+    "plan": "Growth",
+    "subject": "GitHub integration sync failing with auth error",
+    "body": "Our GitHub integration stopped syncing yesterday. The error in the integration dashboard says 'Authentication failed: token expired.' We haven't changed anything on our end. The integration has been working for months. Need this back up \u2014 our dev team relies on the linked PRs showing up on tasks.",
+    "expected_category": "integration",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-040",
+    "customer_name": "Firebrand Media",
+    "plan": "Growth",
+    "subject": "Charts in exported PDF are low resolution",
+    "body": "When we export project reports as PDF, the charts and graphs are very pixelated and hard to read. The same charts look fine on screen. We need these for client-facing reports so they need to look professional. Using Chrome on Windows 11.",
+    "expected_category": "bug",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-041",
+    "customer_name": "Peakline Software",
+    "plan": "Enterprise",
+    "subject": "Blueprint issues when provisioning new departments",
+    "body": "We're trying to use Blueprints to set up workspaces for three new departments but the process keeps failing partway through. The spaces get created but without the default channels and permission groups we configured. Is this a known issue or are we doing something wrong?",
+    "expected_category": "bug",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-042",
+    "customer_name": "Firebrand Media",
+    "plan": "Growth",
+    "subject": "Pulse Check shows last cycle's numbers",
+    "body": "Our Monday executive standup depends on the Pulse Check report but it's showing stale numbers again. The report header says it was generated overnight but the actual metrics inside are clearly from the prior week. We've seen this before and thought it was fixed.",
+    "expected_category": "bug",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-043",
+    "customer_name": "Cliffside Ventures",
+    "plan": "Growth",
+    "subject": "Smart Routing keeps misassigning our tasks",
+    "body": "Ever since we enabled Smart Routing, about 30% of incoming tasks go to the wrong team. Customer support tasks are landing with engineering and vice versa. We haven't changed any routing rules. This is causing delays because people don't notice tasks in their queue that aren't meant for them.",
+    "expected_category": "bug",
+    "expected_priority": "high"
+  },
+  {
+    "ticket_id": "EVAL-044",
+    "customer_name": "Solace HR",
+    "plan": "Enterprise",
+    "subject": "Cascade not propagating role changes to child spaces",
+    "body": "We enabled Cascade permissions on our workspace but when I change someone's role at the top level it's not flowing down. Sub-spaces still show the old role. I've toggled Cascade off and on again but no luck. This is creating permission gaps where people can't access what they need.",
+    "expected_category": "bug",
+    "expected_priority": "medium"
+  },
+  {
+    "ticket_id": "EVAL-045",
+    "customer_name": "Arclight Gaming",
+    "plan": "Starter",
+    "subject": "How do I set up Smart Routing for my team?",
+    "body": "We're spending too much time manually assigning tasks and heard Smart Routing can automate this. How do I turn it on? I looked in Settings but couldn't find it. We're a team of 8 on the Starter plan.",
+    "expected_category": "onboarding",
+    "expected_priority": "low"
+  },
+  {
+    "ticket_id": "EVAL-046",
+    "customer_name": "Greenfield Agriculture",
+    "plan": "Growth",
+    "subject": "Can we add custom KPIs to the weekly Pulse Check?",
+    "body": "The default Pulse Check metrics don't cover what our leadership cares about. We need to add crop yield tracking percentages and supplier SLA compliance to the weekly report. Is there a way to customize which metrics appear in Pulse Check?",
+    "expected_category": "feature_request",
+    "expected_priority": "low"
+  }
+]
