@@ -1,5 +1,8 @@
 """
-Seed the local Postgres + pgvector DB from data/knowledge_base.csv.
+Seed the local Postgres + pgvector DB from data/knowledge_base_fixed.csv.
+
+This is the cleaned/deduped KB produced by `tools/dedup_kb.py` and is
+the canonical source of truth for the RAG.
 
 Usage:
   docker compose up -d db
@@ -22,7 +25,7 @@ sys.path.insert(0, str(REPO_ROOT))
 from src.db import connect, vector_literal
 from src.embeddings import EMBED_DIM, embed
 
-KB_CSV = REPO_ROOT / "data/knowledge_base.csv"
+KB_CSV = REPO_ROOT / "data/knowledge_base_fixed.csv"
 BATCH_SIZE = 64
 
 SCHEMA_SQL = f"""

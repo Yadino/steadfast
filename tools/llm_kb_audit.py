@@ -1,12 +1,13 @@
 """
-LLM-assisted KB audit: Claude via proxy POST .../chat/completions (httpx).
+Flag knowledge base (KB) rows where an LLM suspects the assigned `category` or `priority`
+is wrong for the ticket's content.
 
 Input:  <repo>/data/knowledge_base.csv
 Output: <repo>/data/knowledge_base_llm_flagged.csv
 
-The output CSV keeps the original columns and appends audit columns such as
-suspect flags, suggested labels, confidence, reason, and the model used.
-Paths are fixed relative to this file's repo root unless overridden by CLI args.
+The output CSV is the input columns plus per-row audit fields: which label
+the LLM thinks is wrong, its suggested replacement, a confidence score,
+a short reason, and the model used. Paths can be overridden via CLI args.
 """
 
 from __future__ import annotations

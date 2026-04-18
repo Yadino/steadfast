@@ -1,4 +1,4 @@
-"""Local text embedding (fastembed, ONNX). Cross-platform, no API key."""
+"""Local text embedding with BAAI/bge-small-en-v1.5. Cross-platform, no API key."""
 
 from __future__ import annotations
 

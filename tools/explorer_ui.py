@@ -14,8 +14,8 @@ from streamlit.runtime.scriptrunner import get_script_run_ctx
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_KB_CSV = REPO_ROOT / "data/knowledge_base.csv"
-DEFAULT_AUDIT_CSV = REPO_ROOT / "data/knowledge_base_llm_flagged.csv"
+DEFAULT_KB_CSV = REPO_ROOT / "data/knowledge_base_fixed.csv"
+DEFAULT_AUDIT_CSV = REPO_ROOT / "data/knowledge_base_fixed.csv"
 DEFAULT_EVAL_JSON = REPO_ROOT / "data/eval_set.json"
 AUDIT_SCRIPT = REPO_ROOT / "tools/llm_kb_audit.py"
 

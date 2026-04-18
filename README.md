@@ -15,7 +15,8 @@
 |---|---|---|
 | Postgres + pgvector (Docker) | Local vector DB, port `5433` | `docker-compose.yml` |
 | FastAPI service (Docker) | HTTP API + tiny HTML page to run the pipeline, port `8000` | `Dockerfile`, `src/api.py` |
-| KB seed script | Reads `data/knowledge_base.csv`, embeds rows, upserts into Postgres | `scripts/seed_kb.py` |
+| KB seed script | Reads `data/knowledge_base_fixed.csv`, embeds rows, upserts into Postgres | `scripts/seed_kb.py` |
+| KB dedup tool | Cleans `knowledge_base_llm_flagged.csv` → `knowledge_base_fixed.csv` (one row per subject) | `tools/dedup_kb.py` |
 | Pipeline orchestrator | `process_ticket(...)` — classify → retrieval query → RAG → response | `src/pipeline.py` |
 | Agent stages | `classify`, `build_retrieval_query`, `retrieve`, `generate_response` | `src/agent.py` |
 | Prompts | Classification, retrieval-query, response-generation | `src/prompts.py` |
@@ -273,9 +274,42 @@ docker exec -it steadfast-db psql -U steadfast -d steadfast
 # Rebuild the api after code changes
 docker compose build api && docker compose up -d api
 
-# Re-seed after editing data/knowledge_base.csv
+# Re-seed after editing data/knowledge_base_fixed.csv
 .venv/bin/python scripts/seed_kb.py
 ```
+
+---
+
+## KB cleaning pipeline
+
+Two tools turn the raw `data/knowledge_base.csv` into the canonical
+`data/knowledge_base_fixed.csv` used by the seeder and the rest of the app.
+
+### `tools/llm_kb_audit.py` — flag suspect labels
+
+1. Read `data/knowledge_base.csv`.
+2. Sort rows by `(category, priority, ticket_id)` and chunk into batches
+   (default 20).
+3. For each batch, send `ticket_id / subject / body / resolution /
+   category / priority` to the LLM (Claude via the proxy) with a strict
+   "only flag clearly wrong labels" prompt and parse the JSON response.
+4. Keep flags above the confidence threshold (default `0.8`); on ties,
+   keep the highest-confidence verdict per ticket.
+5. Write `data/knowledge_base_llm_flagged.csv`: original columns plus
+   `suspect_by_llm`, `suspect_category`, `suspect_priority`,
+   `suggested_category`, `suggested_priority`, `suspect_confidence`,
+   `suspect_reason`, `llm_model`.
+
+### `tools/dedup_kb.py` — pick one row per subject
+
+1. Read `data/knowledge_base_llm_flagged.csv` with pandas.
+2. Group rows by exact `subject` string. Singletons pass through.
+3. For each duplicate group, drop rows where `suspect_by_llm = true`
+   (if that empties the group, fall back to the original group).
+4. Compute the modal `category` and modal `priority` among what remains.
+5. Pick the representative: first row matching **both** modes, else the
+   modal `category`, else the modal `priority`, else the first row.
+6. Write `data/knowledge_base_fixed.csv` (one row per subject).
 
 ---
 
@@ -290,9 +324,11 @@ response must tolerate:
   seconds to load" with priorities `high`, `low`, `low`). Retrieval
   top-K often surfaces 4–5 near-identical rows with different labels.
 - **Possible label drift.** `data/knowledge_base_llm_flagged.csv` is the
-  output of the LLM audit (`tools/llm_kb_audit.py`) — rows with
-  `suspect_by_llm = true` are the ones the audit flagged as having
-  inconsistent category/priority for their content.
+  intermediate output of the LLM audit (`tools/llm_kb_audit.py`) — rows
+  with `suspect_by_llm = true` are the ones the audit flagged as having
+  inconsistent category/priority for their content. `tools/dedup_kb.py`
+  consumes that file and writes `data/knowledge_base_fixed.csv`, which is
+  the canonical KB used by the seed script and the rest of the pipeline.
 - **Repeated customers / templated bodies** — see the explorer UI's
   Duplicates and Row Review tabs.
 

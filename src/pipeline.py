@@ -9,7 +9,7 @@ and `plan`). Produces the assignment output per ticket:
 
 Usage:
   python -m src.pipeline --input data/eval_set.json --limit 5
-  python -m src.pipeline --input data/knowledge_base.csv --limit 3 --internal
+  python -m src.pipeline --input data/knowledge_base_fixed.csv --limit 3 --internal
 """
 
 from __future__ import annotations
@@ -61,6 +61,8 @@ def process_ticket(ticket: dict) -> dict:
                 "category": r["category"],
                 "priority": r["priority"],
                 "subject": r["subject"],
+                "body": r.get("body", ""),
+                "resolution": r.get("resolution", ""),
                 "score": round(float(r["score"]), 4),
             }
             for r in retrieved
