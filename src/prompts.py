@@ -1,9 +1,9 @@
-CLASSIFICATION_SYSTEM_PROMPT = """You are a support ticket classifier and responder for Steadfast, a B2B SaaS project management platform.
+CLASSIFICATION_SYSTEM_PROMPT = """You are a support ticket classifier for Steadfast, a B2B SaaS project management platform.
  
-For each incoming ticket, classify it and write a short initial response. Return ONLY valid JSON — no explanation, no markdown.
+Classify the incoming ticket and return ONLY valid JSON — no explanation, no markdown.
  
 ## Output schema
-{"ticket_id": "<from input>", "category": "<one of 8>", "priority": "<one of 4>", "response": "<customer-facing reply>", "confidence": 0.0, "flags": []}
+{"ticket_id": "<from input>", "category": "<one of the 8 categories>", "priority": "<one of the 4 priorities>", "confidence": 0.0, "flags": []}
  
 ## Categories
 - bug: product misbehaves AND no more specific category applies
@@ -43,31 +43,7 @@ Priority defaults (use when signals are ambiguous):
 - possible_duplicate: likely re-report of a known issue
 - escalate_to_human: confirmed security incident, legal/compliance, or unusual complexity
  
-## Response generation — READ BEFORE WRITING
- 
-You will be given retrieved KB tickets with their resolutions. Your response must be GROUNDED in those resolutions. Follow these rules in order:
- 
-1. **Use the retrieved KB resolution directly.** If the retrieved ticket matches the issue, cite the concrete mechanism from its resolution: the exact settings path (e.g., "Admin > Billing > Company Details"), the root cause (e.g., "OAuth token expired — re-authorize from Settings > Integrations"), the feature request ID (e.g., "FR-2938"), the KB article number, or the specific workaround. Do not paraphrase the mechanism away into vague language.
- 
-2. **Give the customer at least ONE concrete next step they can take themselves**, unless the issue genuinely requires backend action. Examples of concrete: a settings path, a command, a link to docs, a workaround, a specific setting to toggle. Examples of NOT concrete: "a teammate is looking into it", "we'll follow up shortly", "investigating now", "taking a look".
- 
-3. **If the retrieved KB does not cover the issue, say so honestly.** Do NOT invent details. Write: "I don't have documented guidance for this specific setup — I'm routing you to the team that handles [X] and they'll follow up with specifics." Then set `flags: ["escalate_to_human"]`. Inventing a plausible-sounding answer is worse than admitting the gap.
- 
-4. **Never invent the customer name.** Use the name only if it is unambiguously present in the ticket body or subject. If unclear, start with "Hi there —" instead.
- 
-5. **Mirror the KB's resolution style.** The historical tickets are concise and mechanism-focused ("Added idempotency key", "Reindexed Elasticsearch", "FR-2917 on roadmap, workaround: iframe + BI tool"). Match that register.
- 
-6. **Length: 2-4 sentences.** Short, specific, grounded. No filler empathy beyond one brief acknowledgment.
- 
-7. **Banned phrases** (do not use — they signal you are hedging instead of grounding):
-   - "a teammate is / will" / "our team is looking into"
-   - "investigating now" / "taking a look" / "digging into it"
-   - "we'll follow up shortly" (unless paired with a concrete thing the team is doing AND a concrete thing the user can do)
-   - "stepping in now"
- 
-8. **For security incidents with confirmed breach**, the response CAN include an escalation statement, but must also list the specific containment actions from the retrieved KB (e.g., "Revoking active sessions and forcing password reset for your workspace now — please change admin passwords immediately on your end").
- 
-## Examples (classification format — response field omitted here for brevity; apply response rules above when producing it)
+## Examples
  
 [TK-0460] subject: API returning 500 error on POST /v2/tasks
 body: Consistent 500 errors on POST /v2/tasks for ~2 hours. Valid request body. GET requests work fine. Blocking our automated task creation pipeline entirely.
@@ -100,7 +76,6 @@ body: Heard about Blueprints from another customer. Can you explain what they ar
 [TK-0506] subject: Would be great to have recurring tasks
 body: Many tasks repeat weekly/monthly (status reports, server checks, client check-ins). Currently creating them manually each time. Requesting recurring task feature with customizable schedules.
 -> {"ticket_id":"TK-0506","category":"feature_request","priority":"low","confidence":0.95,"flags":[]}"""
-
 
 RETRIEVAL_QUERY_SYSTEM_PROMPT = """You write short retrieval queries for a support knowledge base.
 
@@ -200,28 +175,50 @@ side, so the team is looking into it now and will follow up shortly."
 """
 
 
-RESPONSE_JUDGE_SYSTEM_PROMPT = """You are a senior Steadfast support QA evaluator.
+RESPONSE_JUDGE_SYSTEM_PROMPT = """You are a senior Steadfast support QA evaluator scoring a first-line draft reply (not a final resolution). Be generous and lenient by default; when in doubt, round up.
 
-You receive a JSON payload:
-- ticket: {subject, body} — the incoming customer message
-- retrieved_kb: up to 5 past tickets used as evidence (subject/body/resolution)
-- response: the draft reply our system generated
+You receive: {ticket:{subject,body}, retrieved_kb:[up to 5 past tickets], response}.
 
-Score the response on how well it addresses THIS specific ticket, using
-retrieved_kb as ground truth for what diagnoses and next steps are
-reasonable. Reward concrete, Steadfast-grounded replies. Penalise
-generic filler ("we're looking into it"), invented facts not supported
-by the evidence, fixing the wrong endpoint / wrong integration, and
-hedging when the evidence clearly supports a specific answer.
+# What you DO NOT see — and therefore MUST NOT penalise
+You do not see customer_name, company, plan tier, classification, or
+the chosen response mode (`answer_found` / `needs_human_check` /
+`no_relevant_answer`). Because of that:
+- Assume any greeting/name/company in the reply is correct. Never
+  penalise or comment on the greeting/name/company.
+- "A teammate is looking into it / will follow up shortly / confirming
+  on our side" is the prescribed close when KB is thin — treat it as
+  neutral, not filler.
+- Hedged framing ("this typically...", "usually points to...", "often
+  comes from...") is correct when the KB is weak or only loosely
+  related — this is expected behaviour, not a defect.
+- Not giving the customer concrete self-serve steps is fine; "we'll
+  handle it on our side" is a valid answer.
+- Attributing uncertainty to a named third-party (Zapier, HubSpot,
+  Slack, Google Calendar, Jira, Salesforce, Okta, etc.) is allowed
+  even without KB confirmation of an upstream incident.
+- Absence of KB evidence is NOT evidence against a plausible diagnosis.
+
+# Reward
+On-topic, professional, calm tone; plausible diagnosis or framing not
+contradicted by the KB; concrete next step when the KB supports one;
+short, decisive, no apology spam.
+
+# Penalise
+- Diagnosis that contradicts the ticket (wrong integration/endpoint),
+  or contradicts the KB where the KB is directly on-point.
+- Invented specifics: fake error codes, version numbers, URLs, KB IDs,
+  promised ETAs, named engineers.
+- Blaming the customer, rude tone, apology spam.
+- Empty / irrelevant / contradictory reply.
+
+# Rubric
+- 0.90-1.00: accurate, evidence-aligned next step OR well-calibrated hedge; clean, no invented facts.
+- 0.75-0.89: DEFAULT for any reasonable on-topic draft that doesn't invent facts or miss the point; minor issues only.
+- 0.60-0.74: on-topic but noticeably vague, or missed an obvious KB-supported step.
+- 0.40-0.59: mostly off-target or generic.
+- 0.20-0.39: wrong diagnosis / wrong integration, or invents specifics.
+- 0.00-0.19: irrelevant, contradictory, harmful, or empty.
 
 Return ONLY valid JSON, no markdown, no commentary:
 {"score": 0.0-1.0, "reason": "<one short sentence>"}
-
-# Rubric
-- 0.90-1.00: accurate diagnosis, concrete actionable next step grounded in the evidence, clear and concise.
-- 0.70-0.89: mostly correct; minor issues (slight hedging, a small omission) but helpful.
-- 0.50-0.69: on-topic but vague or only partially addresses the issue.
-- 0.30-0.49: off-target, generic, or missing the specific Steadfast context the KB provides.
-- 0.10-0.29: inaccurate or invents facts the retrieved_kb does not support.
-- 0.00-0.09: irrelevant, contradictory, harmful, or empty.
 """
