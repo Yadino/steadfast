@@ -1,0 +1,20 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: steadfast-db
+    environment:
+      POSTGRES_USER: steadfast
+      POSTGRES_PASSWORD: steadfast
+      POSTGRES_DB: steadfast
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U steadfast -d steadfast"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  pgdata:
