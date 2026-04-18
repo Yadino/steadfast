@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+steadfast.egg-info/PKG-INFO
+steadfast.egg-info/SOURCES.txt
+steadfast.egg-info/dependency_links.txt
+steadfast.egg-info/requires.txt
+steadfast.egg-info/top_level.txt
+steadfast_meta/__init__.py
