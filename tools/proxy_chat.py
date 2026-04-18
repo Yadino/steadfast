@@ -111,13 +111,30 @@ def complete_chat(
     messages: list[dict[str, str]],
     *,
     temperature: float = 0.0,
+    max_tokens: int = 4096,
 ) -> str:
+    # Some proxies front Anthropic's Messages API, which rejects role="system"
+    # inside `messages` and wants a top-level `system` string instead. Pull
+    # any leading system messages out into that top-level field.
+    sys_parts: list[str] = []
+    chat_messages: list[dict[str, str]] = []
+    for m in messages:
+        if m.get("role") == "system":
+            content = m.get("content") or ""
+            if isinstance(content, str):
+                sys_parts.append(content)
+        else:
+            chat_messages.append(m)
+
     payload: dict[str, Any] = {
         "model": cfg.model,
-        "messages": messages,
+        "messages": chat_messages,
         "temperature": temperature,
+        "max_tokens": max_tokens,
         "stream": False,
     }
+    if sys_parts:
+        payload["system"] = "\n\n".join(sys_parts)
     headers = {
         "Authorization": f"Bearer {cfg.api_key}",
         "Content-Type": "application/json",

@@ -16,5 +16,21 @@ services:
       timeout: 3s
       retries: 30
 
+  api:
+    build: .
+    container_name: steadfast-api
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql://steadfast:steadfast@db:5432/steadfast
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data:ro
+      - fastembed_cache:/root/.cache
+
 volumes:
   pgdata:
+  fastembed_cache:

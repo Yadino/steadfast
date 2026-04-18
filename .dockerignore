@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+.env.*
+.git/
+.gitignore
+output/
+terminals/
+.vscode/
+.DS_Store
+README_INSTRUCTIONS.md
+data/
