@@ -22,11 +22,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
+from src.config import EMBED_DIM, SEED_BATCH_SIZE
 from src.db import connect, vector_literal
-from src.embeddings import EMBED_DIM, embed
+from src.embeddings import embed
 
 KB_CSV = REPO_ROOT / "data/knowledge_base_fixed.csv"
-BATCH_SIZE = 64
+BATCH_SIZE = SEED_BATCH_SIZE
 
 SCHEMA_SQL = f"""
 CREATE TABLE IF NOT EXISTS kb_tickets (

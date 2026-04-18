@@ -5,6 +5,14 @@ from __future__ import annotations
 import json
 from typing import Any
 
+from src.config import (
+    RESPONSE_MODEL,
+    TEMPERATURE_CLASSIFY,
+    TEMPERATURE_RESPONSE,
+    TEMPERATURE_RETRIEVAL_QUERY,
+    TOP_K,
+    proxy_config,
+)
 from src.db import connect, vector_literal
 from src.embeddings import embed
 from src.prompts import (
@@ -12,11 +20,7 @@ from src.prompts import (
     RETRIEVAL_QUERY_SYSTEM_PROMPT,
     RESPONSE_SYSTEM_PROMPT,
 )
-from tools.proxy_chat import complete_chat, load_proxy_config
-
-DEFAULT_MODEL = "claude-sonnet-4-6"
-DEFAULT_BASE_URL = "https://lsp-proxy.cave.latent.build/v1"
-TOP_K = 5
+from tools.proxy_chat import complete_chat
 
 ALLOWED_CATEGORIES = {
     "billing", "bug", "feature_request", "account",
@@ -26,16 +30,23 @@ ALLOWED_PRIORITIES = {"low", "medium", "high", "critical"}
 ALLOWED_MODES = {"answer_found", "needs_human_check", "no_relevant_answer"}
 
 _cfg = None
+_response_cfg = None
 
 
 def _cfg_once():
     global _cfg
     if _cfg is None:
-        _cfg = load_proxy_config(
-            default_base_url=DEFAULT_BASE_URL,
-            default_model=DEFAULT_MODEL,
-        )
+        _cfg = proxy_config()
     return _cfg
+
+
+def _response_cfg_once():
+    """Separate cfg so the response stage can use a different model
+    (e.g. opus) without changing the model used by classify / retrieval-query."""
+    global _response_cfg
+    if _response_cfg is None:
+        _response_cfg = proxy_config(RESPONSE_MODEL)
+    return _response_cfg
 
 
 def _extract_json(text: str) -> dict[str, Any]:
@@ -77,7 +88,7 @@ def classify(ticket: dict) -> dict:
             {"role": "system", "content": CLASSIFICATION_SYSTEM_PROMPT},
             {"role": "user", "content": user},
         ],
-        temperature=0.0,
+        temperature=TEMPERATURE_CLASSIFY,
     )
     try:
         data = _extract_json(text)
@@ -122,7 +133,7 @@ def build_retrieval_query(ticket: dict, classification: dict) -> str:
             {"role": "system", "content": RETRIEVAL_QUERY_SYSTEM_PROMPT},
             {"role": "user", "content": payload},
         ],
-        temperature=0.0,
+        temperature=TEMPERATURE_RETRIEVAL_QUERY,
     )
     return text.strip().strip('"').strip("`").strip()
 
@@ -177,12 +188,12 @@ def generate_response(
         "retrieved_kb": _format_retrieved(retrieved),
     }
     text = complete_chat(
-        _cfg_once(),
+        _response_cfg_once(),
         [
             {"role": "system", "content": RESPONSE_SYSTEM_PROMPT},
             {"role": "user", "content": json.dumps(payload, ensure_ascii=False)},
         ],
-        temperature=0.2,
+        temperature=TEMPERATURE_RESPONSE,
     )
     try:
         data = _extract_json(text)

@@ -7,13 +7,16 @@ from typing import Iterable
 
 from fastembed import TextEmbedding
 
-MODEL_NAME = "BAAI/bge-small-en-v1.5"
-EMBED_DIM = 384
+from src.config import EMBED_DIM, EMBED_MODEL_NAME
+
+# Re-export for modules that previously imported these from here.
+MODEL_NAME = EMBED_MODEL_NAME
+__all__ = ["EMBED_DIM", "MODEL_NAME", "embed"]
 
 
 @lru_cache(maxsize=1)
 def _model() -> TextEmbedding:
-    return TextEmbedding(model_name=MODEL_NAME)
+    return TextEmbedding(model_name=EMBED_MODEL_NAME)
 
 
 def embed(texts: Iterable[str]) -> list[list[float]]:

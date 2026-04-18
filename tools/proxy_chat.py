@@ -110,9 +110,14 @@ def complete_chat(
     cfg: ProxyConfig,
     messages: list[dict[str, str]],
     *,
-    temperature: float = 0.0,
+    temperature: float | None = 0.0,
     max_tokens: int = 4096,
 ) -> str:
+    """Call the proxy's /chat/completions endpoint.
+
+    Pass `temperature=None` to omit the field entirely from the payload
+    (required for some models, e.g. claude-opus-4-7, which deprecated it).
+    """
     # Some proxies front Anthropic's Messages API, which rejects role="system"
     # inside `messages` and wants a top-level `system` string instead. Pull
     # any leading system messages out into that top-level field.
@@ -129,10 +134,11 @@ def complete_chat(
     payload: dict[str, Any] = {
         "model": cfg.model,
         "messages": chat_messages,
-        "temperature": temperature,
         "max_tokens": max_tokens,
         "stream": False,
     }
+    if temperature is not None:
+        payload["temperature"] = temperature
     if sys_parts:
         payload["system"] = "\n\n".join(sys_parts)
     headers = {

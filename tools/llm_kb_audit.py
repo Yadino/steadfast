@@ -20,19 +20,25 @@ import time
 from pathlib import Path
 from typing import Any
 
-from proxy_chat import ProxyConfig, complete_chat, load_proxy_config
-
 _REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_REPO_ROOT))
+
+from src.config import (  # noqa: E402
+    AUDIT_BATCH_DELAY_S,
+    AUDIT_BATCH_SIZE,
+    AUDIT_MIN_CONFIDENCE,
+    AUDIT_TEMPERATURE,
+    LLM_MODEL,
+    proxy_config,
+)
+from tools.proxy_chat import ProxyConfig, complete_chat  # noqa: E402
+
 DEFAULT_KB_CSV = _REPO_ROOT / "data/knowledge_base.csv"
 DEFAULT_OUTPUT_CSV = _REPO_ROOT / "data/knowledge_base_llm_flagged.csv"
-DEFAULT_BATCH_SIZE = 20
-DEFAULT_BATCH_DELAY_S = 0.2
-
-DEFAULT_BASE_URL = "https://lsp-proxy.cave.latent.build/v1"
-DEFAULT_LLM_MODEL = "claude-sonnet-4-6"
-DEFAULT_LLM_TIMEOUT_S = 90
-DEFAULT_LLM_TEMPERATURE = 0.0
-DEFAULT_MIN_SUSPECT_CONFIDENCE = 0.8
+DEFAULT_BATCH_SIZE = AUDIT_BATCH_SIZE
+DEFAULT_BATCH_DELAY_S = AUDIT_BATCH_DELAY_S
+DEFAULT_LLM_TEMPERATURE = AUDIT_TEMPERATURE
+DEFAULT_MIN_SUSPECT_CONFIDENCE = AUDIT_MIN_CONFIDENCE
 
 ALLOWED_CATEGORIES = (
     "billing",
@@ -64,19 +70,7 @@ def _resolve_path(path: Path) -> Path:
 
 
 def _proxy_config(model_override: str | None = None) -> ProxyConfig:
-    cfg = load_proxy_config(
-        default_base_url=DEFAULT_BASE_URL,
-        default_model=DEFAULT_LLM_MODEL,
-        default_timeout_s=float(DEFAULT_LLM_TIMEOUT_S),
-    )
-    if not model_override:
-        return cfg
-    return ProxyConfig(
-        api_key=cfg.api_key,
-        base_url=cfg.base_url,
-        model=model_override,
-        timeout_s=cfg.timeout_s,
-    )
+    return proxy_config(model_override or LLM_MODEL)
 
 
 def build_batch_user_content(rows: list[dict[str, str]]) -> str:

@@ -1,0 +1,170 @@
+{
+  "category_mismatches": [
+    {
+      "ticket_id": "EVAL-003",
+      "subject": "Where do I find the API rate limit documentation?",
+      "expected": "onboarding",
+      "predicted": "integration"
+    },
+    {
+      "ticket_id": "EVAL-025",
+      "subject": "Why am I being charged for users who haven't logged in?",
+      "expected": "account",
+      "predicted": "billing"
+    },
+    {
+      "ticket_id": "EVAL-032",
+      "subject": "Billing question about adding users to specific projects",
+      "expected": "billing",
+      "predicted": "account"
+    }
+  ],
+  "priority_mismatches": [
+    {
+      "ticket_id": "EVAL-008",
+      "subject": "Can't access billing page since this morning",
+      "expected": "medium",
+      "predicted": "high"
+    },
+    {
+      "ticket_id": "EVAL-009",
+      "subject": "SSO login issues — redirect loop after authentication",
+      "expected": "critical",
+      "predicted": "medium"
+    },
+    {
+      "ticket_id": "EVAL-014",
+      "subject": "Need MFA enforced for all users in our workspace",
+      "expected": "medium",
+      "predicted": "medium"
+    },
+    {
+      "ticket_id": "EVAL-021",
+      "subject": "Database query timeout on large project views",
+      "expected": "critical",
+      "predicted": "high"
+    },
+    {
+      "ticket_id": "EVAL-022",
+      "subject": "Requesting a way to set task dependencies",
+      "expected": "medium",
+      "predicted": "low"
+    },
+    {
+      "ticket_id": "EVAL-023",
+      "subject": "Custom field dropdown values not saving",
+      "expected": "medium",
+      "predicted": "high"
+    },
+    {
+      "ticket_id": "EVAL-036",
+      "subject": "Multiple issues with our workspace — urgent",
+      "expected": "critical",
+      "predicted": "high"
+    },
+    {
+      "ticket_id": "EVAL-040",
+      "subject": "Charts in exported PDF are low resolution",
+      "expected": "low",
+      "predicted": "medium"
+    },
+    {
+      "ticket_id": "EVAL-041",
+      "subject": "Blueprint issues when provisioning new departments",
+      "expected": "high",
+      "predicted": "medium"
+    },
+    {
+      "ticket_id": "EVAL-044",
+      "subject": "Cascade not propagating role changes to child spaces",
+      "expected": "medium",
+      "predicted": "high"
+    }
+  ],
+  "low_score_responses": [
+    {
+      "ticket_id": "EVAL-007",
+      "subject": "Slack integration posting as wrong user",
+      "score": 0.35,
+      "reason": "The response correctly identifies the symptom but is vague and generic ('a teammate is taking a look'), offers no concrete next step or workaround, and the retrieved KB provides no direct evidence to support this diagnosis or resolution path, making the reply unhelpfully non-actionable.",
+      "response": "Hi Steelbridge — this looks like the Slack integration isn't passing through the acting user's identity and is defaulting to the bot account for all posts. A teammate is taking a look now to confirm and get the attribution restored; no action needed on your end in the meantime."
+    },
+    {
+      "ticket_id": "EVAL-012",
+      "subject": "Concerned about data access after employee departure",
+      "score": 0.35,
+      "reason": "The response is vague and generic ('stepping in now', 'follow up shortly') without providing any concrete actionable steps grounded in the KB evidence, such as instructing the customer to immediately revoke all active sessions themselves, directing them to Settings > Admin > Activity for the available activity report, or noting the limitations of current audit logging versus the Enterprise plan's full audit trail.",
+      "response": "Hi Prism Education — thanks for flagging this, and we're treating it as high priority. A teammate from our security team is stepping in now to terminate any active sessions for that account and pull the access history from the last 30 days for your review. We'll follow up shortly with confirmation and the audit details."
+    },
+    {
+      "ticket_id": "EVAL-014",
+      "subject": "Need MFA enforced for all users in our workspace",
+      "score": 0.35,
+      "reason": "The response correctly identifies that MFA enforcement is an admin-level feature and describes the expected enrollment behavior, but the retrieved KB contains no evidence supporting these claims, making them invented facts, and the response is vague and defers action rather than providing concrete next steps grounded in the available evidence.",
+      "response": "Hi Basalt Engineering — workspace-wide MFA enforcement is configurable at the admin level on Enterprise. A teammate will confirm the exact path in your workspace and the behavior for users who haven't yet enrolled (typically they're prompted to set up MFA on their next login) and follow up shortly with step-by-step guidance."
+    },
+    {
+      "ticket_id": "EVAL-015",
+      "subject": "Dashboard widgets showing error state",
+      "score": 0.35,
+      "reason": "The response is generic filler ('a teammate is investigating') with no concrete diagnosis or actionable next step, despite the KB evidence pointing to likely causes such as a caching failure, query/index issue, or a recent deployment bug — all of which are grounded in the retrieved tickets.",
+      "response": "Hi Windrose — widespread 'Error loading data' across dashboard widgets like this typically points to a backend issue on our side affecting the widget data service, rather than anything in your configuration. A teammate is investigating now and will follow up shortly with an update; the rest of the app should remain usable in the meantime."
+    },
+    {
+      "ticket_id": "EVAL-020",
+      "subject": "Need to enable SCIM provisioning with Okta",
+      "score": 0.35,
+      "reason": "The response is on-topic but the retrieved KB contains no evidence supporting SCIM availability, bearer token generation, or any SCIM-specific setup steps, making the concrete details invented rather than grounded in evidence, while the overall reply is also vague about actual next steps.",
+      "response": "Hi Solace HR — SCIM provisioning with Okta is an Enterprise feature and something our team can help you enable directly. A teammate will follow up shortly to confirm your tenant is provisioned for SCIM and walk you through generating the bearer token and configuring the Okta SCIM app."
+    },
+    {
+      "ticket_id": "EVAL-032",
+      "subject": "Billing question about adding users to specific projects",
+      "score": 0.35,
+      "reason": "The response confirms guests count toward seats but provides no concrete next steps or actionable guidance grounded in the KB, and the vague 'teammate will follow up' is generic filler unsupported by the evidence, which offers no KB resolution specifically addressing guest/contractor pricing to draw from.",
+      "response": "Hi Tundra — on the Growth plan, guest users do count toward your seat total, and there isn't a separate guest pricing tier at the moment. A teammate will follow up shortly with the best options for scoping contractor access to specific projects within your current plan."
+    },
+    {
+      "ticket_id": "EVAL-035",
+      "subject": "Trying to connect our data warehouse but having issues",
+      "score": 0.35,
+      "reason": "The response gives a plausible-sounding but unsupported answer (mentioning 'service account scope,' 'Enterprise,' and specific auth guidance) that is not grounded in any of the retrieved KB articles, which contain no information about server-to-server authentication or Snowflake integration, making the advice potentially invented and the deferral to a teammate a generic hedge rather than a concrete, evidence-based next step.",
+      "response": "Hi Harborview — for server-to-server connections like a Snowflake pipeline, you'll want to use an API key with service account scope rather than a user token, which is the standard approach for BI integrations on Enterprise. A teammate is going to follow up shortly to walk you through the specific auth setup and confirm the right scopes for pushing task completion data."
+    },
+    {
+      "ticket_id": "EVAL-040",
+      "subject": "Charts in exported PDF are low resolution",
+      "score": 0.35,
+      "reason": "The response correctly identifies a plausible cause (rasterization vs. vector rendering) but then falls back on generic filler ('a teammate is looking into this') with no concrete next step, and the KB evidence does not support this diagnosis or provide any actionable resolution path for low-resolution chart exports.",
+      "response": "Hi Firebrand Media — pixelated charts in exported PDFs typically come from the charts being rendered as rasterized images at screen resolution rather than as vector graphics. A teammate is looking into this now to confirm and get you a version suitable for client-facing reports; no action needed on your end in the meantime."
+    },
+    {
+      "ticket_id": "EVAL-010",
+      "subject": "App is super laggy when lots of people are on",
+      "score": 0.45,
+      "reason": "The response is on-topic but vague and generic — it doesn't reference the two most relevant KB findings (database migration bleeding into business hours from TK-0245, or unoptimized query bottlenecks from TK-0393) with any specificity, invents a 'teammate pulling metrics' action that isn't grounded in the evidence, and fails to ask for any diagnostic information (e.g., whether they use custom fields, API integrations, or have noticed specific error messages) that would help narrow down the cause.",
+      "response": "Hi Firebrand Media — peak-hour slowdowns like this often come down to either workspace-level query hotspots or background platform work overlapping with business hours, rather than raw capacity. A teammate is pulling your workspace metrics for the 9–11 AM window now to pinpoint the cause and tune it on our side; no action needed from you in the meantime."
+    },
+    {
+      "ticket_id": "EVAL-023",
+      "subject": "Custom field dropdown values not saving",
+      "score": 0.45,
+      "reason": "The response correctly identifies this as a likely bug and reassures the user, but it's vague ('a teammate is digging into it') with no concrete next step, workaround, or timeline, and the retrieved KB provides no supporting evidence for this specific issue, making the generic holding response the best available but still only partially helpful.",
+      "response": "Hi Crosswind Aviation — this looks like a bug where dropdown option values aren't persisting on save for custom fields, rather than anything on your end. A teammate is digging into it now to confirm the cause and get it resolved; no further action needed from you in the meantime."
+    },
+    {
+      "ticket_id": "EVAL-027",
+      "subject": "Files uploaded to tasks disappearing after 24 hours",
+      "score": 0.45,
+      "reason": "The response correctly identifies the issue as serious and cross-file-type, but it's largely generic filler ('investigating now') with no concrete diagnosis or actionable next step, and the retrieved KB provides no supporting evidence for the storage/retention-layer hypothesis, making that claim speculative rather than grounded.",
+      "response": "Hi Fathom AI — thanks for flagging this, and I understand the urgency given these are project deliverables. File attachments disappearing from tasks is not expected behavior, and given this has reproduced across multiple file types it points to something on our storage or retention layer rather than anything on your end. The team is treating this as critical and investigating now; please don't re-upload anything further until we confirm, so we preserve the state for diagnosis."
+    },
+    {
+      "ticket_id": "EVAL-033",
+      "subject": "Automated rules not firing for subtasks",
+      "score": 0.45,
+      "reason": "The response correctly identifies the likely issue (automation rules not firing for subtasks) but is vague and generic — it offers no concrete next step, workaround, or actionable guidance, and the retrieved KB provides no direct evidence to support calling this a 'known gap,' making the claim slightly invented while the overall reply amounts to little more than 'we're looking into it.'",
+      "response": "Hi Goldleaf — this looks like automation rules are only evaluating top-level task transitions and not subtask status changes, which is a known gap rather than a misconfiguration on your side. A teammate is taking a closer look to confirm the scope and will follow up shortly; no action needed from you in the meantime."
+    }
+  ]
+}
